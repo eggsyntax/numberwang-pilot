@@ -4,3 +4,8 @@ tl;dr Experiment to test LLMs on Zendo-like rules which generate lists of intege
 
 See accompanying preregistration doc pdf for details.
 
+Some preparatory notes: https://docs.google.com/document/d/1BmJrQ-Ohzhzioiak0CfoHtqFANhjNF8uaNdxd1jUZGY
+
+Running:
+- Use environment.yml to install libs (currently `openai` and `retry` as of 12/24), ideally in a conda environment
+- `python tester.py`

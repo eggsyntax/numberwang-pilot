@@ -1,0 +1,8 @@
+name: numberwang-pilot
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - openai
+  - conda-forge::retry
+prefix: /opt/homebrew/anaconda3/envs/numberwang-pilot
