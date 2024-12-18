@@ -94,5 +94,15 @@ rules_phase2_pt1 = [
      },
 ]
 
-phase1_models = ['google/gemma-2-27b-it', 'qwen/qwq-32b-preview', 'meta-llama/llama-3.3-70b-instruct', 'openai/gpt-4o-2024-11-20', 'google/gemini-exp-1206:free', 'anthropic/claude-3.5-sonnet:beta']
-phase2_models = ['meta-llama/llama-3.3-70b-instruct', 'qwen/qwq-32b-preview', 'openai/gpt-4o-2024-11-20', 'openai/o1-preview', 'anthropic/claude-3.5-sonnet:beta']
+phase1_models = ['google/gemma-2-27b-it',
+                 'meta-llama/llama-3.3-70b-instruct',
+                 'openai/gpt-4o-2024-11-20',
+                 'anthropic/claude-3.5-sonnet:beta',
+                 'openai/o1-preview',
+                 ]
+phase2_models = ['meta-llama/llama-3.3-70b-instruct',
+                 'qwen/qwq-32b-preview',
+                 'openai/gpt-4o-2024-11-20',
+                 'anthropic/claude-3.5-sonnet:beta',
+                 'openai/o1-preview',
+                 ]

@@ -6,12 +6,12 @@ import traceback
 import util
 
 from api import Conversation
-from datetime import date
+from datetime import datetime
 from operator import itemgetter
 from retry import retry
 from rules_and_models import * # just data structures, no code
 from typing import Dict, List, Optional, Union
-from util import save_transcript, output
+from util import save_transcript, output, print_and_save_summary
 
 debug = True
 output_directory = '../transcripts/phase-1/'
@@ -50,39 +50,39 @@ class Test:
         return response
 
     def parse_response(self, response: str):
-        try:
-            # GPT-4o wraps its response in markdown, strip that out if present:
-            response = re.sub(r'^```json\n?(.*)\n?```$', r'\1', response.strip(), flags=re.DOTALL)
-            parsed = json.loads(response)
-        except Exception as e:
-            print(f'Failed to parse this response: {response}')
-            print(f'Got error {e}')
-            raise
+        # GPT-4o wraps its response in markdown, strip that out if present:
+        response = re.sub(r'^```json\n?(.*)\n?```$', r'\1', response.strip(), flags=re.DOTALL)
+        parsed = json.loads(response)
         final_hypothesis = parsed.get('final_hypothesis')
         test_cases = parsed.get('test_cases')
         # self.output(f'\nResponse {response}\n')
         return final_hypothesis, test_cases
 
-    def judge_hypothesis(self, model_hypothesis):
+    def judge_final_hypothesis(self, model_hypothesis):
+        self.output(f'Requesting final judgment.')
         convo = Conversation(self.analysis_model)
         real_rule = self.rule
+        self.output(f'Real rule:  {real_rule}')
+        self.output(f'Model rule: {model_hypothesis}')
         prompt = self.judgment_prompt.format(real_rule=real_rule, model_hypothesis=model_hypothesis)
-        self.output(f'\nFinal judgment prompt: {prompt}\n')
+        # self.output(f'\nFinal judgment prompt: {prompt}\n')
         response = convo.message(prompt)
         return json.loads(response)
 
+    # TODO use @retry here?
     def run(self):
         convo = Conversation(self.test_model)
         turns = 0
         total_turns = 20
         judgment = None
+        final_hypothesis = None
         prompt = self.initial_prompt.format(example=self.example)
         self.output('\n------------------------------------------------------------\n')
         self.output(f'Rule: {self.rule}')
         self.output(f'Model: {self.test_model}')
-        self.output(f'Date: {date.today()}\n')
+        self.output(f'Date: {datetime.now()}\n')
         self.output(f'Initial prompt: {prompt}\n\n')
-        exception_count = 0  # Add this counter outside the while loop
+        exception_count = 0
         while turns < total_turns:
             try:
                 self.output(f'Turn number {turns+1}')
@@ -90,39 +90,63 @@ class Test:
                 response = convo.message(prompt, print_history=False)
                 self.output(response)
                 # parse the response
-                final_hypothesis, test_cases = self.parse_response(response)
+                try:
+                    final_hypothesis, test_cases = self.parse_response(response)
+                except Exception as e:
+                    print(f'Failed to parse this response: {response}')
+                    print(f'Got error {e}')
+                    print('Removing last response from history and trying again.')
+                    convo.history = convo.history[:-1]
+                    raise # for error counting
                 # if the model is done, judge its hypothesis & return
                 if final_hypothesis:
-                    judgment = self.judge_hypothesis(final_hypothesis)
+                    judgment = self.judge_final_hypothesis(final_hypothesis)
                     break
                 # analyze whether its test cases are correct.
                 prompt = self.analyze_test_cases(test_cases)
+                if prompt is None:
+                    prompt = "I'm sorry, I couldn't get an analysis of your test cases, please try again."
                 # self.output(f'\nAnalysis response: {prompt}\n\n')
                 # loop up to total_turns
                 turns += 1
                 # code.interact(local=locals()) #  XXX
             except Exception as e:
                 exception_count += 1
+                print(f'Error number {exception_count}.')
                 if exception_count >= 3:
+                    print("\n\nSorry, we just totally can't recover here.\n")
                     traceback.print_exc()
-                    raise
+                    print("\n\n\n")
+                    return {'judgment': False, 'explanation': f'Irrecoverable errors'}, turns, self.transcript
                 self.output(f'\nError number {exception_count} in run()! {e}\n')
+                continue
         if not final_hypothesis:
             # model has failed to guess; it fails.
-            return {'judgment': False, 'explanation': 'Ran out of turns.'}, turns
-        # TODO
+            return {'judgment': False, 'explanation': 'Ran out of turns.'}, turns, self.transcript
         # Save & return results
         return judgment, turns, self.transcript
 
+# YOUAREHERE
+# TODO q2q insists on thinking out loud (and hallucinating feedback) *before* returning the
+#      requested JSON structure. It seems possible that other inference-time-compute models
+#      could have this problem as well. Additionally, models don't seem to think out loud
+#      inside the thought_process key of the JSON structure as much as they might otherwise.
+#      It may be worth letting them think out loud first and only *then* return the JSON
+#      structure. Might have to enclose the JSON in a <response /> tag as I do with the
+#      analysis prompt.
+# TODO try having the model explicitly list, I dunno, 6 hypotheses.
+# TODO use best-of-three for final judgment because there are sometimes errors.
+# TODO append the minimal summary to a file
 
 if __name__ == '__main__':
-    test_rules = rules_phase1[:2] #  TODO
-    test_models = phase1_models[:3] #  TODO
+    test_rules = rules_phase1[:] #  TODO
+    test_models = phase1_models[:] #  TODO
     for test_model in test_models:
         successful_rules = []
         for test_rule in test_rules[:2]:
             rule, short_rule, example = itemgetter('rule', 'short_rule', 'example')(test_rule)
             test = Test(rule, example, test_model)
+            transcript = ""
             try:
                 judgment, turns, transcript = test.run()
                 if judgment['judgment']:
@@ -133,14 +157,11 @@ if __name__ == '__main__':
                 continue
             transcript = util.output(transcript, judgment)
             transcript = util.output(transcript, f'\n\nRule was: {rule}')
-            transcript = util.output(transcript, f'Did model succeed? {judgment["judgment"]}')
+            transcript = util.output(transcript, f'Did {test_model} succeed? {judgment["judgment"]}')
             transcript = util.output(transcript, f'Model took {turns} turns.')
             transcript = util.output(transcript, '\n\n')
             save_transcript(transcript, short_rule, test_model, judgment['judgment'], output_directory)
             print('\n\n\n\n')
 
-        print(f'For model: {test_model}')
-        print(f'Rules where {test_model} succeeded: {successful_rules}')
-        print(f'Rules where {test_model} failed: {[r["short_rule"] for r in test_rules if r["short_rule"] not in successful_rules]}')
-        print(f'Success rate: {len(successful_rules) / len(test_rules)}')
-        print('\n\n\n')
+        failed_rules = [r["short_rule"] for r in test_rules if r["short_rule"] not in successful_rules]
+        print_and_save_summary(test_model, successful_rules, failed_rules, output_directory)

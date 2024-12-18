@@ -1,4 +1,12 @@
-initial_prompt = """
+
+
+------------------------------------------------------------
+
+Rule: There are no repeated numbers in the list.
+Model: anthropic/claude-3.5-sonnet:beta
+Date: 2024-12-17 10:50:16.651151
+
+Initial prompt: 
 Hello! Your task today is to act as a smart, trained scientist. I will present you with a list containing several integers, which satisfies some rule. Your task is to form a single hypothesis about the underlying rule that the list satisfies.
 
 Explain that hypothesis, and then use it to generate five new lists to test it. I will then tell you which of your proposed lists satisfy the rule. Then you will refine or replace your hypothesis as needed and present me with five more lists you want to test. You can perform as many such tests as you wish, up to a maximum of 19. When you are confident that your hypothesis is correct, say so and give your final hypothesis.
@@ -12,7 +20,7 @@ Explain that hypothesis, and then use it to generate five new lists to test it. 
 
 Please respond in exactly and only the following JSON format:
 
-{{
+{
   "thought_process": <contains your current thinking about the task -- think out loud here as much as you want before continuing>,
   "possible_hypotheses": <list of six strings, each describing a possible hypothesis which is compatible with the data so far>,
   "leading_hypothesis": <string describing your current hypothesis>,
@@ -24,51 +32,60 @@ Please respond in exactly and only the following JSON format:
     <4th list of integers to test>,
     <5th list of integers to test>
   ]
-}}
+}
 
 If and only if you're fully confident that your latest hypothesis is correct, you should include the "final_hypothesis" key; otherwise you should always include the "leading_hypothesis" key.
 
 Remember: good scientists think hard about ways to falsify their hypothesis!
 
 Here is your example list:
-{example}
-"""
+[4, 11, 8, 6]
 
-analysis_prompt="""
-Hello! You are a careful mathematical analyst. You will be presented with five test cases, each of which is a list of integers. Your job is to decide whether each test case follows the following rule: {rule}
 
-Lists containing non-integers are automatically incorrect.
 
-Please think step by step as much as you need to, and then respond with the following:
+Turn number 1
+{
+  "thought_process": "Let me analyze this initial list carefully. I notice these properties:\n- Contains 4 integers\n- Mix of even and odd numbers\n- Numbers between 4 and 11\n- No obvious mathematical sequence\n- No obvious pattern in odd/even alternation\nI should start with broad hypotheses and try to narrow down with strategic tests. I'll test some basic properties like size constraints, number properties, and relationships between adjacent numbers.",
+  
+  "possible_hypotheses": [
+    "List contains exactly 4 numbers",
+    "List contains at least one odd and one even number",
+    "Sum of all numbers is greater than 20",
+    "No number appears more than once",
+    "Maximum number is odd",
+    "Difference between largest and smallest number is less than 10"
+  ],
+  
+  "leading_hypothesis": "List contains at least one odd number and one even number, with no repeating numbers",
+  
+  "test_cases": [
+    [2, 7, 4, 9],
+    [1, 3, 6, 8],
+    [5, 5, 2, 8],
+    [12, 3],
+    [4, 6, 8, 10]
+  ]
+}
 
-<response>
-1. <Just the word 'Yes' or 'No', depending on whether test case 1 follows the rule>
-2. <Just the word 'Yes' or 'No', depending on whether test case 2 follows the rule>
-3. <Just the word 'Yes' or 'No', depending on whether test case 3 follows the rule>
-4. <Just the word 'Yes' or 'No', depending on whether test case 4 follows the rule>
-5. <Just the word 'Yes' or 'No', depending on whether test case 5 follows the rule>
-</response>
+Analysis response from model: 
 
-Here are the test cases to analyze:
-{test_cases}
+Turn number 2
 
-Take a deep breath and think step by step.
-"""
 
-judgment_prompt = """
-Hello! You are a careful mathematical analyst. Your job today is to decide whether the following two rules about lists of integers are equivalent. Differences in wording are unimportant; the only thing that matters is whether the two rules are extensionally equivalent. That is, they are equivalent if and only if they would make the same judgment about all lists of integers. If there are unresolvable ambiguities (for example, about whether the rules would handle particular edge cases like the empty list in the same way), those should not be disqualifying. Similarly, if the second rule has some minor additional constraints (eg the number of list items) that aren't very pertinent, this should not be disqualifying.
+Error number 1 in run()! Expecting value: line 1 column 1 (char 0)
 
-The first rule is the base or real rule; the second is the one that you are judging.
+Turn number 2
 
-Please respond in exactly and only the following JSON format:
 
-{{
-  "explanation": <string explaining your judgment>
-  "judgment": <boolean; true if the rules are equivalent or false if they're not>,
-}}
+Error number 2 in run()! Expecting value: line 1 column 1 (char 0)
 
-Here are the two rules:
-1. {real_rule}
-2. {model_hypothesis}
+Turn number 2
 
-"""
+{'judgment': False, 'explanation': 'Irrecoverable errors'}
+
+
+Rule was: There are no repeated numbers in the list.
+Did model succeed? False
+Model took 1 turns.
+
+

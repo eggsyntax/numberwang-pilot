@@ -2,38 +2,7 @@ import glob
 import os
 import re
 
-# def save_transcript(transcript: str, rule: str, model: str, success: bool, directory='../transcripts/phase-1/') -> None:
-    # """
-    # Save a transcript file with a filename built from the rule, model, and success status.
-#
-    # Args:
-        # rule (str): The rule name
-        # model (str): The model name
-        # success (bool): Whether the attempt was successful
-        # transcript (str): The content to save in the file
-    # """
-    # # Clean and format the strings for filename use
-    # def clean_string(s: str) -> str:
-        # # Convert to lowercase, replace spaces with hyphens
-        # # Remove any characters that aren't alphanumeric, hyphens, or dots
-        # import re
-        # s = s.lower()
-        # s = s.replace(' ', '-')
-        # s = re.sub(r'[^a-z0-9\.-]', '', s)
-        # return s
-    # # Create cleaned versions of the strings
-    # rule_clean = clean_string(rule)
-    # model_clean = clean_string(model)
-    # success_str = "success" if success else "failure"
-    # # Construct the filename
-    # filename = f"{rule_clean}.{model_clean}.{success_str}.txt"
-    # # Ensure the directory exists
-    # os.makedirs(directory, exist_ok=True)
-    # # Create the full path
-    # filepath = os.path.join(directory, filename)
-    # # Write the transcript to the file
-    # with open(filepath, 'w') as f:
-        # f.write(transcript)
+from datetime import datetime
 
 def save_transcript(transcript: str, rule: str, model: str, success: bool, directory='../transcripts/phase-1/') -> None:
    """
@@ -78,3 +47,17 @@ def output(transcript, input_str, debug=True):
     if debug:
         print("\n" + str(input_str))
     return transcript + "\n" + str(input_str)
+
+def print_and_save_summary(test_model, successful_rules, failed_rules, directory):
+    lines = [
+        f'For model: {test_model} at {datetime.now()}',
+        f'Rules where {test_model} succeeded: {successful_rules}',
+        f'Rules where {test_model} failed: {failed_rules}',
+        f'Success rate: {len(successful_rules) / (len(successful_rules) + len(failed_rules))}',
+        '\n\n\n',
+    ]
+    filename = f'{directory}summary.txt'
+    with open(filename, "a") as f:
+        for line in lines:
+            print(line)
+            f.write(f'{line}\n')

@@ -1,4 +1,5 @@
 import os
+import traceback
 
 from dataclasses import dataclass
 from openai import OpenAI
@@ -19,9 +20,10 @@ class Conversation:
         self.history = []
         self.latest_response = None
 
-    @retry(tries=6, delay=5, backoff=2)
+    @retry(tries=2, delay=5, backoff=2)
     def message(self, msg: str, print_history=False):
         messages = self.history
+        response = None
         messages.append(
             {
                 "role": "user",
@@ -38,7 +40,6 @@ class Conversation:
                 temperature=0,
                 timeout=60,
             )
-            # TODO handle errors, look at other relevant keys (refusal, maybe function_call or tool_call)
             response = completion.choices[0].message.content
             self.history.append(
                 {
@@ -50,6 +51,9 @@ class Conversation:
         # TODO handle specific errors, retries
         except Exception as e:
             print(f'ERROR CALLING API!\n\n{e}')
+            print(f'Full response: {response}')
+            print('Stack trace:')
+            traceback.print_exc()
             raise(e)
 
 

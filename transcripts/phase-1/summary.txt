@@ -1,0 +1,46 @@
+For model: anthropic/claude-3.5-sonnet:beta at 2024-12-17 10:25:10.249223Rules where anthropic/claude-3.5-sonnet:beta succeeded: []Rules where anthropic/claude-3.5-sonnet:beta failed: ['first item duplicated', 'alternating increase decrease']Success rate: 0.0
+
+
+For model: openai/o1-preview at 2024-12-17 10:25:47.504497Rules where openai/o1-preview succeeded: []Rules where openai/o1-preview failed: ['first item duplicated', 'alternating increase decrease']Success rate: 0.0
+
+
+For model: google/gemma-2-27b-it at 2024-12-17 10:39:24.056091
+Rules where google/gemma-2-27b-it succeeded: []
+Rules where google/gemma-2-27b-it failed: ['constant differences', 'no repeats', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Success rate: 0.0
+
+
+
+
+For model: meta-llama/llama-3.3-70b-instruct at 2024-12-17 10:46:51.914042
+Rules where meta-llama/llama-3.3-70b-instruct succeeded: []
+Rules where meta-llama/llama-3.3-70b-instruct failed: ['constant differences', 'no repeats', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Success rate: 0.0
+
+
+
+
+For model: openai/gpt-4o-2024-11-20 at 2024-12-17 10:49:02.625457
+Rules where openai/gpt-4o-2024-11-20 succeeded: ['no repeats']
+Rules where openai/gpt-4o-2024-11-20 failed: ['constant differences', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Success rate: 0.125
+
+
+
+
+For model: anthropic/claude-3.5-sonnet:beta at 2024-12-17 10:50:44.005673
+Rules where anthropic/claude-3.5-sonnet:beta succeeded: ['constant differences']
+Rules where anthropic/claude-3.5-sonnet:beta failed: ['no repeats', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Success rate: 0.125
+
+
+
+
+For model: openai/o1-preview at 2024-12-17 11:02:16.146700
+Rules where openai/o1-preview succeeded: ['constant differences']
+Rules where openai/o1-preview failed: ['no repeats', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Success rate: 0.125
+
+
+
+
