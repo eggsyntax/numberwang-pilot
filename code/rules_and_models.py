@@ -96,13 +96,15 @@ rules_phase2_pt1 = [
 
 phase1_models = ['google/gemma-2-27b-it',
                  'meta-llama/llama-3.3-70b-instruct',
+                 'google/gemini-2.0-flash-exp:free',
                  'openai/gpt-4o-2024-11-20',
                  'anthropic/claude-3.5-sonnet:beta',
-                 'openai/o1-preview',
+                 # 'openai/o1-preview', # Thinks our prompt violates TOS :/
                  ]
 phase2_models = ['meta-llama/llama-3.3-70b-instruct',
                  'qwen/qwq-32b-preview',
+                 'google/gemini-2.0-flash-exp:free',
                  'openai/gpt-4o-2024-11-20',
                  'anthropic/claude-3.5-sonnet:beta',
-                 'openai/o1-preview',
+                 # 'openai/o1-preview', # Thinks our prompt violates TOS :/
                  ]

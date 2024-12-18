@@ -50,6 +50,8 @@ class Test:
         return response
 
     def parse_response(self, response: str):
+        response = re.sub(r'.*<response>(.*)',
+                          r'\1', response, flags=re.DOTALL)
         # GPT-4o wraps its response in markdown, strip that out if present:
         response = re.sub(r'^```json\n?(.*)\n?```$', r'\1', response.strip(), flags=re.DOTALL)
         parsed = json.loads(response)
@@ -117,7 +119,7 @@ class Test:
                     print("\n\nSorry, we just totally can't recover here.\n")
                     traceback.print_exc()
                     print("\n\n\n")
-                    return {'judgment': False, 'explanation': f'Irrecoverable errors'}, turns, self.transcript
+                    return {'judgment': False, 'explanation': f'Irrecoverable errors'}, -1, self.transcript
                 self.output(f'\nError number {exception_count} in run()! {e}\n')
                 continue
         if not final_hypothesis:
@@ -134,34 +136,40 @@ class Test:
 #      It may be worth letting them think out loud first and only *then* return the JSON
 #      structure. Might have to enclose the JSON in a <response /> tag as I do with the
 #      analysis prompt.
-# TODO try having the model explicitly list, I dunno, 6 hypotheses.
+# TODO provide several initial examples instead of one.
 # TODO use best-of-three for final judgment because there are sometimes errors.
 # TODO append the minimal summary to a file
 
 if __name__ == '__main__':
-    test_rules = rules_phase1[:] #  TODO
-    test_models = phase1_models[:] #  TODO
+    test_rules = rules_phase1[1:2] #  TODO
+    test_models = phase1_models[-2:-1] #  TODO
     for test_model in test_models:
-        successful_rules = []
-        for test_rule in test_rules[:2]:
-            rule, short_rule, example = itemgetter('rule', 'short_rule', 'example')(test_rule)
-            test = Test(rule, example, test_model)
-            transcript = ""
-            try:
-                judgment, turns, transcript = test.run()
-                if judgment['judgment']:
-                    successful_rules.append(short_rule)
-            except Exception as e:
-                util.output(transcript, f"Sorry, couldn't make it work with {test_model} after 3 tries. Moving on to next model!")
-                traceback.print_exc()
-                continue
-            transcript = util.output(transcript, judgment)
-            transcript = util.output(transcript, f'\n\nRule was: {rule}')
-            transcript = util.output(transcript, f'Did {test_model} succeed? {judgment["judgment"]}')
-            transcript = util.output(transcript, f'Model took {turns} turns.')
-            transcript = util.output(transcript, '\n\n')
-            save_transcript(transcript, short_rule, test_model, judgment['judgment'], output_directory)
-            print('\n\n\n\n')
+        try:
+            successful_rules = []
+            turns_per_problem = []
+            for test_rule in test_rules[:2]:
+                rule, short_rule, example = itemgetter('rule', 'short_rule', 'example')(test_rule)
+                test = Test(rule, example, test_model)
+                transcript = ""
+                try:
+                    judgment, turns, transcript = test.run()
+                    if judgment['judgment']:
+                        successful_rules.append(short_rule)
+                    turns_per_problem.append(turns)
+                except Exception as e:
+                    util.output(transcript, f"Sorry, couldn't make it work with {test_model} after 3 tries. Moving on to next model!")
+                    traceback.print_exc()
+                    continue
+                transcript = util.output(transcript, judgment)
+                transcript = util.output(transcript, f'\n\nRule was: {rule}')
+                transcript = util.output(transcript, f'Did {test_model} succeed? {judgment["judgment"]}')
+                transcript = util.output(transcript, f'Model took {turns} turns.')
+                transcript = util.output(transcript, '\n\n')
+                save_transcript(transcript, short_rule, test_model, judgment['judgment'], output_directory)
+                print('\n\n\n\n')
+        except Exception as e:
+            print('Hit the last ditch exception for {test_model}. Skipping this model entirely.')
+            continue
 
         failed_rules = [r["short_rule"] for r in test_rules if r["short_rule"] not in successful_rules]
-        print_and_save_summary(test_model, successful_rules, failed_rules, output_directory)
+        print_and_save_summary(test_model, successful_rules, failed_rules, turns_per_problem, output_directory)

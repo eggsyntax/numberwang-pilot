@@ -48,11 +48,12 @@ def output(transcript, input_str, debug=True):
         print("\n" + str(input_str))
     return transcript + "\n" + str(input_str)
 
-def print_and_save_summary(test_model, successful_rules, failed_rules, directory):
+def print_and_save_summary(test_model, successful_rules, failed_rules, turns_per_problem, directory):
     lines = [
         f'For model: {test_model} at {datetime.now()}',
         f'Rules where {test_model} succeeded: {successful_rules}',
         f'Rules where {test_model} failed: {failed_rules}',
+        f'Number of turns: {turns_per_problem}',
         f'Success rate: {len(successful_rules) / (len(successful_rules) + len(failed_rules))}',
         '\n\n\n',
     ]

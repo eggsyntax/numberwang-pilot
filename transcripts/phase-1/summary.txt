@@ -44,3 +44,57 @@ Success rate: 0.125
 
 
 
+For model: google/gemma-2-27b-it at 2024-12-18 15:02:22.505910
+Rules where google/gemma-2-27b-it succeeded: ['constant differences']
+Rules where google/gemma-2-27b-it failed: ['no repeats', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Number of turns: 10
+Success rate: 0.125
+
+
+
+
+For model: meta-llama/llama-3.3-70b-instruct at 2024-12-18 15:11:27.391092
+Rules where meta-llama/llama-3.3-70b-instruct succeeded: ['no repeats']
+Rules where meta-llama/llama-3.3-70b-instruct failed: ['constant differences', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Number of turns: 4
+Success rate: 0.125
+
+
+
+
+For model: openai/gpt-4o-2024-11-20 at 2024-12-18 15:12:56.802707
+Rules where openai/gpt-4o-2024-11-20 succeeded: []
+Rules where openai/gpt-4o-2024-11-20 failed: ['constant differences', 'no repeats', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Number of turns: 4
+Success rate: 0.0
+
+
+
+
+For model: anthropic/claude-3.5-sonnet:beta at 2024-12-18 15:16:43.811017
+Rules where anthropic/claude-3.5-sonnet:beta succeeded: ['no repeats']
+Rules where anthropic/claude-3.5-sonnet:beta failed: ['constant differences', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Number of turns: 4
+Success rate: 0.125
+
+
+
+
+For model: openai/o1-preview at 2024-12-18 15:16:49.479249
+Rules where openai/o1-preview succeeded: []
+Rules where openai/o1-preview failed: ['constant differences', 'no repeats', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Number of turns: 0
+Success rate: 0.0
+
+
+
+
+For model: openai/gpt-4o-2024-11-20 at 2024-12-18 16:37:45.005436
+Rules where openai/gpt-4o-2024-11-20 succeeded: ['no repeats']
+Rules where openai/gpt-4o-2024-11-20 failed: []
+Number of turns: [4]
+Success rate: 1.0
+
+
+
+
