@@ -98,3 +98,57 @@ Success rate: 1.0
 
 
 
+For model: openai/gpt-4o-2024-11-20 at 2024-12-18 17:14:04.887761
+Rules where openai/gpt-4o-2024-11-20 succeeded: []
+Rules where openai/gpt-4o-2024-11-20 failed: ['constant differences', 'no repeats']
+Number of turns: []
+Success rate: 0.0
+
+
+
+
+For model: openai/gpt-4o-2024-11-20 at 2024-12-18 17:23:24.432545
+Rules where openai/gpt-4o-2024-11-20 succeeded: []
+Rules where openai/gpt-4o-2024-11-20 failed: ['constant differences', 'no repeats']
+Number of turns: [20, -1]
+Success rate: 0.0
+
+
+
+
+For model: google/gemini-2.0-flash-exp:free at 2024-12-18 17:31:43.339242
+Rules where google/gemini-2.0-flash-exp:free succeeded: ['constant differences']
+Rules where google/gemini-2.0-flash-exp:free failed: ['no repeats', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Number of turns: [4, -1]
+Success rate: 0.125
+
+
+
+
+For model: anthropic/claude-3.5-sonnet:beta at 2024-12-18 17:37:00.023044
+Rules where anthropic/claude-3.5-sonnet:beta succeeded: ['constant differences']
+Rules where anthropic/claude-3.5-sonnet:beta failed: ['no repeats', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Number of turns: [3, 3]
+Success rate: 0.125
+
+
+
+
+For model: anthropic/claude-3.5-sonnet:beta at 2024-12-18 18:02:41.756366
+Rules where anthropic/claude-3.5-sonnet:beta succeeded: ['constant differences', 'alternating increase decrease']
+Rules where anthropic/claude-3.5-sonnet:beta failed: ['no repeats', 'decremented square', 'first item duplicated', 'no primes', 'sum to 20', 'one prime']
+Number of turns: [3, 2, 20, 3, 7, 6, 13, 11]
+Success rate: 0.25
+
+
+
+
+For model: google/gemma-2-27b-it at 2024-12-19 11:40:42.062599
+Rules where google/gemma-2-27b-it succeeded: ['constant differences']
+Rules where google/gemma-2-27b-it failed: ['no repeats', 'decremented square', 'first item duplicated', 'alternating increase decrease', 'no primes', 'sum to 20', 'one prime']
+Number of turns: [3, 2, -1, 3, -1, 4, 20, 7]
+Success rate: 0.125
+
+
+
+

@@ -1,7 +1,7 @@
 initial_prompt = """
-Hello! You are an extremely intelligent scientist. I will present you with a list containing several integers, which satisfies some rule. Your task is to create, test, and refine/replace hypotheses about the underlying rule that the list satisfies.
+Hello! You are an extremely intelligent and experienced scientist. I will present you with several lists, each containing several integers, each of which satisfies some rule. Your task is to create, test, and refine/replace hypotheses about the underlying rule that the list satisfies.
 
-Explain that hypothesis, and then use it to generate five new lists to test it. I will then tell you which of your proposed lists satisfy the rule. Then you will refine or replace your hypothesis as needed and present me with five more lists you want to test. You can perform as many such tests as you wish, up to a maximum of 19 rounds. When you are confident that your hypothesis is correct, say so and give your final hypothesis.
+Explain your hypotheses, and then use them to generate five new lists to test them. I will then tell you which of your proposed lists satisfy the rule. Then you will refine or replace your hypotheses as needed and present me with five more lists you want to test. You can perform as many such tests as you wish, up to a maximum of 19 rounds. When you are confident that your hypothesis is correct, say so and give your final hypothesis.
 
 * Look for patterns & relations. Look for the unexpected.
 * Brainstorm multiple hypotheses, as different as possible. Think out of the box! Include six maximally simple hypothesis compatible with the data in each "possible_hypotheses" section (defined below).
@@ -30,8 +30,8 @@ If and only if you're fully confident that your latest hypothesis is correct, yo
 
 Remember: good scientists think hard about ways to falsify their hypothesis!
 
-Here is your example list:
-{example}
+Here are your example lists:
+{examples}
 """
 
 analysis_prompt="""

@@ -19,7 +19,7 @@ output_directory = '../transcripts/phase-1/'
 class Test:
     def __init__(self,
                  rule: str,
-                 example: List[int],
+                 examples: List[List[int]],
                  test_model: str,
                  initial_prompt=prompts.initial_prompt,
                  analysis_prompt=prompts.analysis_prompt,
@@ -28,7 +28,7 @@ class Test:
                  transcript='',
                  ):
         self.rule = rule
-        self.example = example
+        self.examples = examples
         self.test_model = test_model
         self.analysis_model = analysis_model
         self.initial_prompt = initial_prompt
@@ -62,14 +62,23 @@ class Test:
 
     def judge_final_hypothesis(self, model_hypothesis):
         self.output(f'Requesting final judgment.')
-        convo = Conversation(self.analysis_model)
-        real_rule = self.rule
-        self.output(f'Real rule:  {real_rule}')
-        self.output(f'Model rule: {model_hypothesis}')
-        prompt = self.judgment_prompt.format(real_rule=real_rule, model_hypothesis=model_hypothesis)
-        # self.output(f'\nFinal judgment prompt: {prompt}\n')
-        response = convo.message(prompt)
-        return json.loads(response)
+        judgments = []
+        # Use majority-of-3 because occasionally one is wrong
+        for _ in range(3):
+            convo = Conversation(self.analysis_model)
+            real_rule = self.rule
+            self.output(f'Real rule:  {real_rule}')
+            self.output(f'Model rule: {model_hypothesis}')
+            prompt = self.judgment_prompt.format(real_rule=real_rule, model_hypothesis=model_hypothesis)
+            # self.output(f'\nFinal judgment prompt: {prompt}\n')
+            response = convo.message(prompt)
+            judgments.append(json.loads(response))
+        true_judgments = [j for j in judgments if j.judgment]
+        if len( true_judgments ) >= 2:
+            return true_judgments[0]
+        else:
+            false_judgments = [j for j in judgments if j not in true_judgments]
+            return false_judgments[0]
 
     # TODO use @retry here?
     def run(self):
@@ -78,7 +87,8 @@ class Test:
         total_turns = 20
         judgment = None
         final_hypothesis = None
-        prompt = self.initial_prompt.format(example=self.example)
+        examples = '\n'.join([str(example) for example in self.examples])
+        prompt = self.initial_prompt.format(examples=examples)
         self.output('\n------------------------------------------------------------\n')
         self.output(f'Rule: {self.rule}')
         self.output(f'Model: {self.test_model}')
@@ -128,28 +138,16 @@ class Test:
         # Save & return results
         return judgment, turns, self.transcript
 
-# YOUAREHERE
-# TODO q2q insists on thinking out loud (and hallucinating feedback) *before* returning the
-#      requested JSON structure. It seems possible that other inference-time-compute models
-#      could have this problem as well. Additionally, models don't seem to think out loud
-#      inside the thought_process key of the JSON structure as much as they might otherwise.
-#      It may be worth letting them think out loud first and only *then* return the JSON
-#      structure. Might have to enclose the JSON in a <response /> tag as I do with the
-#      analysis prompt.
-# TODO provide several initial examples instead of one.
-# TODO use best-of-three for final judgment because there are sometimes errors.
-# TODO append the minimal summary to a file
-
 if __name__ == '__main__':
-    test_rules = rules_phase1[1:2] #  TODO
-    test_models = phase1_models[-2:-1] #  TODO
+    test_rules = rules_phase1[:] #  TODO
+    test_models = phase1_models[1:3] #  TODO
     for test_model in test_models:
         try:
             successful_rules = []
             turns_per_problem = []
-            for test_rule in test_rules[:2]:
-                rule, short_rule, example = itemgetter('rule', 'short_rule', 'example')(test_rule)
-                test = Test(rule, example, test_model)
+            for test_rule in test_rules[:]:
+                rule, short_rule, examples = itemgetter('rule', 'short_rule', 'examples')(test_rule)
+                test = Test(rule, examples, test_model)
                 transcript = ""
                 try:
                     judgment, turns, transcript = test.run()
