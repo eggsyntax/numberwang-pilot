@@ -48,12 +48,11 @@ class Conversation:
                 },
             )
             return response
-        # TODO handle specific errors, retries
         except Exception as e:
             print(f'ERROR CALLING API!\n\n{e}')
             print(f'Full response: {response}')
             print('Stack trace:')
-            traceback.print_exc()
+            util.output(transcript, traceback.format_exc())
             raise(e)
 
 

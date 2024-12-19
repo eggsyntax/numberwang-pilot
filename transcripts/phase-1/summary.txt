@@ -152,3 +152,75 @@ Success rate: 0.125
 
 
 
+For model: meta-llama/llama-3.3-70b-instruct at 2024-12-19 13:07:08.054567
+Rules where meta-llama/llama-3.3-70b-instruct succeeded: []
+Rules where meta-llama/llama-3.3-70b-instruct failed: ['decremented square', 'first item duplicated']
+Number of turns: [6, 3]
+Success rate: 0.0
+
+
+
+
+For model: qwen/qwen-2.5-coder-32b-instruct at 2024-12-19 13:09:17.682989
+Rules where qwen/qwen-2.5-coder-32b-instruct succeeded: []
+Rules where qwen/qwen-2.5-coder-32b-instruct failed: ['decremented square', 'first item duplicated']
+Number of turns: [-1, -1]
+Success rate: 0.0
+
+
+
+
+For model: qwen/qwen-2.5-coder-32b-instruct at 2024-12-19 14:53:16.660756
+Rules where qwen/qwen-2.5-coder-32b-instruct succeeded: []
+Rules where qwen/qwen-2.5-coder-32b-instruct failed: ['decremented square', 'first item duplicated']
+Number of turns: [12, 2]
+Success rate: 0.0
+
+
+
+
+For model: google/gemini-pro-1.5 at 2024-12-19 15:00:43.684272
+Rules where google/gemini-pro-1.5 succeeded: []
+Rules where google/gemini-pro-1.5 failed: ['decremented square', 'first item duplicated']
+Number of turns: [11, 4]
+Success rate: 0.0
+
+
+
+
+For model: x-ai/grok-2-1212 at 2024-12-19 15:14:52.860808
+Rules where x-ai/grok-2-1212 succeeded: []
+Rules where x-ai/grok-2-1212 failed: ['decremented square', 'first item duplicated']
+Number of turns: [20, 2]
+Success rate: 0.0
+
+
+
+
+For model: cohere/command-r-plus at 2024-12-19 15:26:43.204541
+Rules where cohere/command-r-plus succeeded: []
+Rules where cohere/command-r-plus failed: ['decremented square', 'first item duplicated']
+Number of turns: [20, -1]
+Success rate: 0.0
+
+
+
+
+For model: anthropic/claude-3-opus:beta at 2024-12-19 15:36:06.531385
+Rules where anthropic/claude-3-opus:beta succeeded: ['first item duplicated']
+Rules where anthropic/claude-3-opus:beta failed: ['decremented square']
+Number of turns: [10, 3]
+Success rate: 0.5
+
+
+
+
+For model: openai/o1 at 2024-12-19 15:36:42.184638
+Rules where openai/o1 succeeded: []
+Rules where openai/o1 failed: ['decremented square', 'first item duplicated']
+Number of turns: [-1, -1]
+Success rate: 0.0
+
+
+
+

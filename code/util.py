@@ -2,9 +2,9 @@ import glob
 import os
 import re
 
-from datetime import datetime
+from datetime import date, datetime
 
-def save_transcript(transcript: str, rule: str, model: str, success: bool, directory='../transcripts/phase-1/') -> None:
+def save_transcript(transcript: str, rule: str, model: str, success: bool, directory='../transcripts/phase-2/') -> None:
    """
    Save a transcript file with a filename built from the rule, model, and success status.
    Automatically versions the file (v01, v02, etc.) if previous versions exist.
@@ -23,7 +23,7 @@ def save_transcript(transcript: str, rule: str, model: str, success: bool, direc
    rule_clean = clean_string(rule)
    model_clean = clean_string(model)
    success_str = "success" if success else "failure"
-   directory = "../transcripts/phase-1"
+   directory = "../transcripts/phase-2"
    os.makedirs(directory, exist_ok=True)
    base_pattern = os.path.join(directory, f"{rule_clean}.{model_clean}.{success_str}.v*.txt")
    existing_files = glob.glob(base_pattern)
@@ -38,7 +38,7 @@ def save_transcript(transcript: str, rule: str, model: str, success: bool, direc
            except (ValueError, IndexError):
                continue
        next_version = max(version_numbers, default=0) + 1
-   filename = f"{rule_clean}.{model_clean}.{success_str}.v{next_version:02d}.txt"
+   filename = f"{rule_clean}.{model_clean}.{date.today()}.{success_str}.v{next_version:02d}.txt"
    filepath = os.path.join(directory, filename)
    with open(filepath, 'w') as f:
        f.write(transcript)
@@ -61,4 +61,4 @@ def print_and_save_summary(test_model, successful_rules, failed_rules, turns_per
     with open(filename, "a") as f:
         for line in lines:
             print(line)
-            f.write(f'{line}\n')
+            f.write(f'{line}\n\n')

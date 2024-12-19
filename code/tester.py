@@ -14,7 +14,7 @@ from typing import Dict, List, Optional, Union
 from util import save_transcript, output, print_and_save_summary
 
 debug = True
-output_directory = '../transcripts/phase-1/'
+output_directory = '../transcripts/phase-2/'
 
 class Test:
     def __init__(self,
@@ -52,6 +52,8 @@ class Test:
     def parse_response(self, response: str):
         response = re.sub(r'.*<response>(.*)',
                           r'\1', response, flags=re.DOTALL)
+        response = re.sub(r'</response>', # sometimes mistakenly included by LLM
+                          r'', response)
         # GPT-4o wraps its response in markdown, strip that out if present:
         response = re.sub(r'^```json\n?(.*)\n?```$', r'\1', response.strip(), flags=re.DOTALL)
         parsed = json.loads(response)
@@ -63,21 +65,23 @@ class Test:
     def judge_final_hypothesis(self, model_hypothesis):
         self.output(f'Requesting final judgment.')
         judgments = []
+        real_rule = self.rule
+        prompt = self.judgment_prompt.format(real_rule=real_rule, model_hypothesis=model_hypothesis)
+        self.output(f'Real rule:  {real_rule}')
+        self.output(f'Model rule: {model_hypothesis}')
+        # self.output(f'\nFinal judgment prompt: {prompt}\n')
         # Use majority-of-3 because occasionally one is wrong
         for _ in range(3):
             convo = Conversation(self.analysis_model)
-            real_rule = self.rule
-            self.output(f'Real rule:  {real_rule}')
-            self.output(f'Model rule: {model_hypothesis}')
-            prompt = self.judgment_prompt.format(real_rule=real_rule, model_hypothesis=model_hypothesis)
-            # self.output(f'\nFinal judgment prompt: {prompt}\n')
             response = convo.message(prompt)
             judgments.append(json.loads(response))
-        true_judgments = [j for j in judgments if j.judgment]
+        true_judgments = [j for j in judgments if j['judgment']]
         if len( true_judgments ) >= 2:
+            self.output(f'Final judgment: {true_judgments[0]}')
             return true_judgments[0]
         else:
             false_judgments = [j for j in judgments if j not in true_judgments]
+            self.output(f'Final judgment: {false_judgments[0]}')
             return false_judgments[0]
 
     # TODO use @retry here?
@@ -105,9 +109,9 @@ class Test:
                 try:
                     final_hypothesis, test_cases = self.parse_response(response)
                 except Exception as e:
-                    print(f'Failed to parse this response: {response}')
-                    print(f'Got error {e}')
-                    print('Removing last response from history and trying again.')
+                    self.output(f'Failed to parse this response: {response}')
+                    self.output(f'Got error {e}')
+                    self.output('Removing last response from history and trying again.')
                     convo.history = convo.history[:-1]
                     raise # for error counting
                 # if the model is done, judge its hypothesis & return
@@ -121,14 +125,13 @@ class Test:
                 # self.output(f'\nAnalysis response: {prompt}\n\n')
                 # loop up to total_turns
                 turns += 1
-                # code.interact(local=locals()) #  XXX
             except Exception as e:
                 exception_count += 1
-                print(f'Error number {exception_count}.')
+                self.output(f'Error number {exception_count}.')
                 if exception_count >= 3:
-                    print("\n\nSorry, we just totally can't recover here.\n")
-                    traceback.print_exc()
-                    print("\n\n\n")
+                    self.output("\n\nSorry, we just totally can't recover here.\n")
+                    self.output(traceback.format_exc())
+                    self.output("\n\n\n")
                     return {'judgment': False, 'explanation': f'Irrecoverable errors'}, -1, self.transcript
                 self.output(f'\nError number {exception_count} in run()! {e}\n')
                 continue
@@ -139,34 +142,43 @@ class Test:
         return judgment, turns, self.transcript
 
 if __name__ == '__main__':
-    test_rules = rules_phase1[:] #  TODO
-    test_models = phase1_models[1:3] #  TODO
+    test_rules = rules_phase2_pt1[:1]
+    test_models = phase2_models[:1]
     for test_model in test_models:
         try:
             successful_rules = []
+            failed_rules = []
             turns_per_problem = []
             for test_rule in test_rules[:]:
-                rule, short_rule, examples = itemgetter('rule', 'short_rule', 'examples')(test_rule)
-                test = Test(rule, examples, test_model)
-                transcript = ""
                 try:
-                    judgment, turns, transcript = test.run()
-                    if judgment['judgment']:
-                        successful_rules.append(short_rule)
-                    turns_per_problem.append(turns)
+                    rule, short_rule, examples = itemgetter('rule', 'short_rule', 'examples')(test_rule)
+                    test = Test(rule, examples, test_model)
+                    transcript = ""
+                    try:
+                        judgment, turns, transcript = test.run()
+                        if judgment['judgment']:
+                            successful_rules.append(short_rule)
+                        turns_per_problem.append(turns)
+                    except Exception as e:
+                        util.output(transcript, f"Sorry, couldn't make this rule work with {test_model} after 3 tries. Moving on to next rule!")
+                        failed_rules.append(short_rule)
+                        util.output(transcript, traceback.format_exc())
+                        continue
+                    transcript = util.output(transcript, judgment)
+                    transcript = util.output(transcript, f'\n\nRule was: {rule}')
+                    transcript = util.output(transcript, f'Did {test_model} succeed? {judgment["judgment"]}')
+                    transcript = util.output(transcript, f'Model took {turns} turns.')
+                    transcript = util.output(transcript, '\n\n')
+                    save_transcript(transcript, short_rule, test_model, judgment['judgment'], output_directory)
+                    util.output(transcript, '\n\n\n\n')
                 except Exception as e:
-                    util.output(transcript, f"Sorry, couldn't make it work with {test_model} after 3 tries. Moving on to next model!")
-                    traceback.print_exc()
+                    util.output(transcript, 'Hit the last ditch exception for {test_rule}. Skipping this rule.')
+                    failed_rules.append(short_rule)
+                    util.output(transcript, traceback.format_exc())
                     continue
-                transcript = util.output(transcript, judgment)
-                transcript = util.output(transcript, f'\n\nRule was: {rule}')
-                transcript = util.output(transcript, f'Did {test_model} succeed? {judgment["judgment"]}')
-                transcript = util.output(transcript, f'Model took {turns} turns.')
-                transcript = util.output(transcript, '\n\n')
-                save_transcript(transcript, short_rule, test_model, judgment['judgment'], output_directory)
-                print('\n\n\n\n')
         except Exception as e:
-            print('Hit the last ditch exception for {test_model}. Skipping this model entirely.')
+            util.output(transcript, 'Hit the last ditch exception for {test_model}. Skipping this model entirely.')
+            util.output(transcript, traceback.format_exc())
             continue
 
         failed_rules = [r["short_rule"] for r in test_rules if r["short_rule"] not in successful_rules]

@@ -167,6 +167,45 @@ rules_phase2_pt1 = [
      },
 ]
 
+# rules_phase2_pt2 = [
+#     {'rule': '',
+#      'short_rule': '',
+#      'examples': [
+#          [],
+#          [],
+#          [],
+#      ],
+#      'difficulty':
+#      },
+#     {'rule': '',
+#      'short_rule': '',
+#      'examples': [
+#          [],
+#          [],
+#          [],
+#      ],
+#      'difficulty':
+#      },
+#     {'rule': '',
+#      'short_rule': '',
+#      'examples': [
+#          [],
+#          [],
+#          [],
+#      ],
+#      'difficulty':
+#      },
+#     {'rule': '',
+#      'short_rule': '',
+#      'examples': [
+#          [],
+#          [],
+#          [],
+#      ],
+#      'difficulty':
+#      },
+# ]
+
 phase1_models = ['google/gemma-2-27b-it',
                  'meta-llama/llama-3.3-70b-instruct',
                  'qwen/qwen-2.5-coder-32b-instruct',
@@ -174,16 +213,10 @@ phase1_models = ['google/gemma-2-27b-it',
                  'google/gemini-pro-1.5',
                  'anthropic/claude-3.5-sonnet:beta',
                  'anthropic/claude-3-opus:beta',
-                 'openai/o1',
+                 # 'openai/o1', # Can't do o1 because it thinks our prompt violates ToS :/
                  ]
-phase1_extras = ['qwen/qwen-2.5-coder-32b-instruct',
-                 'google/gemini-pro-1.5',
-                 'x-ai/grok-2-1212',
-                 'cohere/command-r-plus',
-                 'anthropic/claude-3-opus:beta',
-                 'openai/o1',
-                 ]
-phase2_models = ['meta-llama/llama-3.3-70b-instruct',
+phase2_models = ['google/gemma-2-27b-it',
+                 'meta-llama/llama-3.3-70b-instruct',
                  'qwen/qwen-2.5-coder-32b-instruct',
                  'openai/gpt-4o-2024-11-20',
                  'google/gemini-pro-1.5',
@@ -191,5 +224,5 @@ phase2_models = ['meta-llama/llama-3.3-70b-instruct',
                  'cohere/command-r-plus',
                  'anthropic/claude-3.5-sonnet:beta',
                  'anthropic/claude-3-opus:beta',
-                 'openai/o1',
+                 # 'openai/o1', # Can't do o1 because it thinks our prompt violates ToS :/
                  ]
