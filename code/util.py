@@ -1,10 +1,11 @@
+import csv
 import glob
 import os
 import re
 
 from datetime import date, datetime
 
-def save_transcript(transcript: str, rule: str, model: str, success: bool, directory='../transcripts/phase-2/') -> None:
+def save_transcript(transcript: str, rule: str, model: str, success: bool, directory) -> None:
    """
    Save a transcript file with a filename built from the rule, model, and success status.
    Automatically versions the file (v01, v02, etc.) if previous versions exist.
@@ -47,6 +48,13 @@ def output(transcript, input_str, debug=True):
     if debug:
         print("\n" + str(input_str))
     return transcript + "\n" + str(input_str)
+
+def save_result_to_csv(test_model, short_rule, difficulty, judgment, turns, directory):
+    filename = f'{directory}results.csv'
+    with open(filename, "a") as f:
+        line = [test_model, short_rule, difficulty, judgment, turns, date.today()]
+        writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
+        writer.writerow(line)
 
 def print_and_save_summary(test_model, successful_rules, failed_rules, turns_per_problem, directory):
     lines = [

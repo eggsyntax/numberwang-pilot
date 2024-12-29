@@ -11,7 +11,7 @@ from operator import itemgetter
 from retry import retry
 from rules_and_models import * # just data structures, no code
 from typing import Dict, List, Optional, Union
-from util import save_transcript, output, print_and_save_summary
+from util import save_transcript, output, print_and_save_summary, save_result_to_csv
 
 debug = True
 output_directory = '../transcripts/phase-2/'
@@ -109,7 +109,10 @@ class Test:
                 try:
                     final_hypothesis, test_cases = self.parse_response(response)
                 except Exception as e:
-                    self.output(f'Failed to parse this response: {response}')
+                    self.output(f'Failed to parse this response:')
+                    self.output(f'------------------------------')
+                    self.output(f'{response}')
+                    self.output(f'------------------------------')
                     self.output(f'Got error {e}')
                     self.output('Removing last response from history and trying again.')
                     convo.history = convo.history[:-1]
@@ -141,17 +144,18 @@ class Test:
         # Save & return results
         return judgment, turns, self.transcript
 
+# TODO note -- started main run of phase 2 part 1 at 2024-12-19 18:55
 if __name__ == '__main__':
-    test_rules = rules_phase2_pt1[:1]
-    test_models = phase2_models[:1]
+    test_rules = rules_phase2_pt1[-2:]
+    test_models = phase2_models[:]
     for test_model in test_models:
         try:
             successful_rules = []
             failed_rules = []
             turns_per_problem = []
-            for test_rule in test_rules[:]:
+            for test_rule in test_rules:
                 try:
-                    rule, short_rule, examples = itemgetter('rule', 'short_rule', 'examples')(test_rule)
+                    rule, short_rule, examples, difficulty = itemgetter('rule', 'short_rule', 'examples', 'difficulty')(test_rule)
                     test = Test(rule, examples, test_model)
                     transcript = ""
                     try:
@@ -170,6 +174,7 @@ if __name__ == '__main__':
                     transcript = util.output(transcript, f'Model took {turns} turns.')
                     transcript = util.output(transcript, '\n\n')
                     save_transcript(transcript, short_rule, test_model, judgment['judgment'], output_directory)
+                    save_result_to_csv(test_model, short_rule, difficulty, judgment['judgment'], turns, output_directory)
                     util.output(transcript, '\n\n\n\n')
                 except Exception as e:
                     util.output(transcript, 'Hit the last ditch exception for {test_rule}. Skipping this rule.')

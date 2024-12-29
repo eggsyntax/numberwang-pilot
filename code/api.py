@@ -52,7 +52,7 @@ class Conversation:
             print(f'ERROR CALLING API!\n\n{e}')
             print(f'Full response: {response}')
             print('Stack trace:')
-            util.output(transcript, traceback.format_exc())
+            print(traceback.format_exc())
             raise(e)
 
 
