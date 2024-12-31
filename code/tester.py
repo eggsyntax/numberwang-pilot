@@ -15,6 +15,7 @@ from util import save_transcript, output, print_and_save_summary, save_result_to
 
 debug = True
 output_directory = '../transcripts/phase-2/'
+results_directory = '../results/per-run/'
 
 class Test:
     def __init__(self,
@@ -144,10 +145,9 @@ class Test:
         # Save & return results
         return judgment, turns, self.transcript
 
-# TODO note -- started main run of phase 2 part 1 at 2024-12-19 18:55
 if __name__ == '__main__':
-    test_rules = rules_phase2_pt1[-2:]
-    test_models = phase2_models[:]
+    test_rules = rules_phase2_pt1[:]
+    test_models = phase2_models[7:8]
     for test_model in test_models:
         try:
             successful_rules = []
@@ -174,7 +174,7 @@ if __name__ == '__main__':
                     transcript = util.output(transcript, f'Model took {turns} turns.')
                     transcript = util.output(transcript, '\n\n')
                     save_transcript(transcript, short_rule, test_model, judgment['judgment'], output_directory)
-                    save_result_to_csv(test_model, short_rule, difficulty, judgment['judgment'], turns, output_directory)
+                    save_result_to_csv(test_model, short_rule, difficulty, judgment['judgment'], turns, results_directory)
                     util.output(transcript, '\n\n\n\n')
                 except Exception as e:
                     util.output(transcript, 'Hit the last ditch exception for {test_rule}. Skipping this rule.')
@@ -187,4 +187,4 @@ if __name__ == '__main__':
             continue
 
         failed_rules = [r["short_rule"] for r in test_rules if r["short_rule"] not in successful_rules]
-        print_and_save_summary(test_model, successful_rules, failed_rules, turns_per_problem, output_directory)
+        print_and_save_summary(test_model, successful_rules, failed_rules, turns_per_problem, results_directory)
