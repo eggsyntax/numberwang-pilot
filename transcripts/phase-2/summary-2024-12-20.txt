@@ -105,13 +105,15 @@ Success rate: 0.0
 
 For model: anthropic/claude-3.5-sonnet:beta at 2024-12-20 11:04:40.061310
 
-Rules where anthropic/claude-3.5-sonnet:beta succeeded: ['strictly increasing order', 'no repeated numbers', 'converging toward center', 'prime number of elements', 'previous over 17']
+Rules where anthropic/claude-3.5-sonnet:beta succeeded: ['strictly increasing order', 'no repeated numbers', 'converging toward center', 'prime number of elements']
 
-Rules where anthropic/claude-3.5-sonnet:beta failed: ['mult 3 or 5 not both', 'odd number of odd numbers', 'previous or sum', 'collatzish', 'divisible or plus 13']
+Rules where anthropic/claude-3.5-sonnet:beta failed: ['mult 3 or 5 not both', 'odd number of odd numbers', 'previous or sum', 'collatzish', 'divisible or plus 13', 'previous over 17']
 
 Number of turns: [5, 3, 19, 10, 5, 5, 5, 4, 4, 7]
 
-Success rate: 0.5
+NOTE that Sonnet succeeded on a previous run for 'previous over 17', giving a success rate of 0.5, but I had failed to add a 2nd and 3rd example on the last two problems, so I reran.
+
+Success rate: 0.4
 
 
 
@@ -127,144 +129,3 @@ Rules where anthropic/claude-3-opus:beta failed: ['no repeated numbers', 'mult 3
 Number of turns: [3, -1, 6, 3, 3, 4, -1, 4, 3, 2]
 
 Success rate: 0.1
-
-
-
-
-
-
-For model: google/gemma-2-27b-it at 2024-12-20 17:25:54.100109
-
-Rules where google/gemma-2-27b-it succeeded: []
-
-Rules where google/gemma-2-27b-it failed: ['divisible or plus 13', 'previous over 17']
-
-Number of turns: [4, 20]
-
-Success rate: 0.0
-
-
-
-
-
-
-For model: meta-llama/llama-3.3-70b-instruct at 2024-12-20 17:37:47.369899
-
-Rules where meta-llama/llama-3.3-70b-instruct succeeded: []
-
-Rules where meta-llama/llama-3.3-70b-instruct failed: ['divisible or plus 13', 'previous over 17']
-
-Number of turns: [6, 7]
-
-Success rate: 0.0
-
-
-
-
-
-
-For model: qwen/qwen-2.5-coder-32b-instruct at 2024-12-20 17:50:35.256273
-
-Rules where qwen/qwen-2.5-coder-32b-instruct succeeded: []
-
-Rules where qwen/qwen-2.5-coder-32b-instruct failed: ['divisible or plus 13', 'previous over 17']
-
-Number of turns: [3, 14]
-
-Success rate: 0.0
-
-
-
-
-
-
-For model: openai/gpt-4o-2024-11-20 at 2024-12-20 17:58:46.678492
-
-Rules where openai/gpt-4o-2024-11-20 succeeded: []
-
-Rules where openai/gpt-4o-2024-11-20 failed: ['divisible or plus 13', 'previous over 17']
-
-Number of turns: [3, 20]
-
-Success rate: 0.0
-
-
-
-
-
-
-For model: google/gemini-pro-1.5 at 2024-12-20 18:02:33.390381
-
-Rules where google/gemini-pro-1.5 succeeded: []
-
-Rules where google/gemini-pro-1.5 failed: ['divisible or plus 13', 'previous over 17']
-
-Number of turns: [3, -1]
-
-Success rate: 0.0
-
-
-
-
-
-
-For model: x-ai/grok-2-1212 at 2024-12-20 18:38:21.073673
-
-Rules where x-ai/grok-2-1212 succeeded: []
-
-Rules where x-ai/grok-2-1212 failed: ['divisible or plus 13', 'previous over 17']
-
-Number of turns: [20, -1]
-
-Success rate: 0.0
-
-
-
-
-
-
-For model: cohere/command-r-plus at 2024-12-20 18:43:21.375288
-
-Rules where cohere/command-r-plus succeeded: []
-
-Rules where cohere/command-r-plus failed: ['divisible or plus 13', 'previous over 17']
-
-Number of turns: [3, 4]
-
-Success rate: 0.0
-
-
-
-
-
-
-For model: anthropic/claude-3.5-sonnet:beta at 2024-12-20 18:54:09.966928
-
-Rules where anthropic/claude-3.5-sonnet:beta succeeded: []
-
-Rules where anthropic/claude-3.5-sonnet:beta failed: ['divisible or plus 13', 'previous over 17']
-
-Number of turns: [8, 18]
-
-Success rate: 0.0
-
-
-
-
-
-
-For model: anthropic/claude-3-opus:beta at 2024-12-20 19:00:40.658495
-
-Rules where anthropic/claude-3-opus:beta succeeded: []
-
-Rules where anthropic/claude-3-opus:beta failed: ['divisible or plus 13', 'previous over 17']
-
-Number of turns: [2, 6]
-
-Success rate: 0.0
-
-
-
-
-
-

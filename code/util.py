@@ -50,7 +50,7 @@ def output(transcript, input_str, debug=True):
     return transcript + "\n" + str(input_str)
 
 def save_result_to_csv(test_model, short_rule, difficulty, judgment, turns, directory):
-    filename = f'{directory}results.csv'
+    filename = f'{directory}results.{date.today()}.csv'
     with open(filename, "a") as f:
         line = [test_model, short_rule, difficulty, judgment, turns, date.today()]
         writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
@@ -65,7 +65,7 @@ def print_and_save_summary(test_model, successful_rules, failed_rules, turns_per
         f'Success rate: {len(successful_rules) / (len(successful_rules) + len(failed_rules))}',
         '\n\n\n',
     ]
-    filename = f'{directory}summary.txt'
+    filename = f'{directory}summary.{date.today()}.txt'
     with open(filename, "a") as f:
         for line in lines:
             print(line)

@@ -1,0 +1,10 @@
+"model","strictly increasing order","no repeated numbers","mult 3 or 5 not both","converging toward center","odd number of odd numbers","prime number of elements","previous or sum","collatzish","divisible or plus 13","previous over 17","successRate"
+"google/gemma-2-27b-it",0,0,0,0,0,0,0,0,0,0,0
+"meta-llama/llama-3.3-70b-instruct",1,0,0,0,0,0,0,0,0,0,0.1
+"qwen/qwen-2.5-coder-32b-instruct",0,1,0,0,0,0,0,0,0,0,0.1
+"openai/gpt-4o-2024-11-20",0,0,0,0,0,0,0,0,0,1,0.1
+"google/gemini-pro-1.5",0,0,0,0,0,0,0,0,0,0,0
+"x-ai/grok-2-1212",0,0,0,0,1,0,0,0,0,0,0.1
+"cohere/command-r-plus",0,0,0,0,0,0,0,0,0,0,0
+"anthropic/claude-3.5-sonnet:beta",1,1,0,1,0,1,0,0,0,0,0.4
+"anthropic/claude-3-opus:beta",1,0,0,0,0,0,0,0,0,0,0.1

@@ -156,7 +156,7 @@ rules_phase2_pt1 = [
      ],
      'difficulty': 4.35,
      },
-    {'rule': 'Each item is equal to the first non-zero digit of (previous_item / 17). For example, [4, 2, 1, 5, 2] or ',
+    {'rule': 'Each item is equal to the first non-zero digit of (previous_item / 17). For example, [4, 2, 1, 5, 2].',
      'short_rule': 'previous over 17',
      'examples': [
          [4, 2, 1, 5, 2],
@@ -215,6 +215,7 @@ phase1_models = ['google/gemma-2-27b-it',
                  'anthropic/claude-3-opus:beta',
                  # 'openai/o1', # Can't do o1 because it thinks our prompt violates ToS :/
                  ]
+
 phase2_models = ['google/gemma-2-27b-it',
                  'meta-llama/llama-3.3-70b-instruct',
                  'qwen/qwen-2.5-coder-32b-instruct',
