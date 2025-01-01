@@ -45,9 +45,9 @@ Success rate: 0.1
 
 For model: openai/gpt-4o-2024-11-20 at 2024-12-20 02:26:50.622937
 
-Rules where openai/gpt-4o-2024-11-20 succeeded: ['previous over 17']
+Rules where openai/gpt-4o-2024-11-20 succeeded: []
 
-Rules where openai/gpt-4o-2024-11-20 failed: ['strictly increasing order', 'no repeated numbers', 'mult 3 or 5 not both', 'converging toward center', 'odd number of odd numbers', 'prime number of elements', 'previous or sum', 'collatzish', 'divisible or plus 13']
+Rules where openai/gpt-4o-2024-11-20 failed: ['strictly increasing order', 'no repeated numbers', 'mult 3 or 5 not both', 'converging toward center', 'odd number of odd numbers', 'prime number of elements', 'previous or sum', 'collatzish', 'divisible or plus 13', 'previous over 17']
 
 Number of turns: [-1, -1, -1, 3, -1, 2, 4, 20, 8, 9]
 
