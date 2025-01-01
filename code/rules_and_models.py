@@ -216,14 +216,8 @@ phase1_models = ['google/gemma-2-27b-it',
                  # 'openai/o1', # Can't do o1 because it thinks our prompt violates ToS :/
                  ]
 
-phase2_models = ['google/gemma-2-27b-it',
-                 'meta-llama/llama-3.3-70b-instruct',
-                 'qwen/qwen-2.5-coder-32b-instruct',
-                 'openai/gpt-4o-2024-11-20',
-                 'google/gemini-pro-1.5',
-                 'x-ai/grok-2-1212',
-                 'cohere/command-r-plus',
-                 'anthropic/claude-3.5-sonnet:beta',
-                 'anthropic/claude-3-opus:beta',
-                 # 'openai/o1', # Can't do o1 because it thinks our prompt violates ToS :/
-                 ]
+# o1 branch: just o1-preview & o1-mini (o1 itself still requires a tier 5 key)
+phase2_models = [
+    'openai/o1-preview-2024-09-12',
+    'openai/o1-mini-2024-09-12'
+]

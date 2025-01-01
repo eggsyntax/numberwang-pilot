@@ -146,8 +146,8 @@ class Test:
         return judgment, turns, self.transcript
 
 if __name__ == '__main__':
-    test_rules = rules_phase2_pt1[:]
-    test_models = phase2_models[7:8]
+    test_rules = rules_phase2_pt1[7:8]
+    test_models = phase2_models[:]
     for test_model in test_models:
         try:
             successful_rules = []

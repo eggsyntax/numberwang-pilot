@@ -10,10 +10,9 @@ Explain your hypotheses, and then use them to generate five new lists to test th
 * If stuck, try simple tests or variants on what worked before.
 * Before settling on a final hypothesis, try removing constraints to see if they're necessary.
 
-Think out loud step by step as much as you want, and then add a line with only a <response> tag, and then finish your response with exactly the following JSON format:
+Think step by step as much as you want, and then add a line with only a <response> tag, and then finish your response with exactly the following JSON format:
 
 {{
-  "thought_process": <contains your current thinking about the task -- think out loud here as much as you want before continuing>,
   "possible_hypotheses": <list of six strings, each describing a possible hypothesis which is compatible with the data so far>,
   "leading_hypothesis": <string describing your current hypothesis>,
   "final_hypothesis": <a string describing your final hypothesis>,
