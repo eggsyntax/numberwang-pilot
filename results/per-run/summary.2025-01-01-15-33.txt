@@ -1,0 +1,30 @@
+For model: openai/o1-preview-2024-09-12 at 2025-01-01 15:33:27.723968
+
+Rules where openai/o1-preview-2024-09-12 succeeded: []
+
+Rules where openai/o1-preview-2024-09-12 failed: ['collatzish']
+
+Number of turns: [-1]
+
+Success rate: 0.0
+
+
+
+
+
+
+For model: openai/o1-mini-2024-09-12 at 2025-01-01 15:33:46.507269
+
+Rules where openai/o1-mini-2024-09-12 succeeded: []
+
+Rules where openai/o1-mini-2024-09-12 failed: ['collatzish']
+
+Number of turns: [-1]
+
+Success rate: 0.0
+
+
+
+
+
+

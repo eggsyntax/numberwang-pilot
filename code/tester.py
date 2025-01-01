@@ -185,6 +185,5 @@ if __name__ == '__main__':
             util.output(transcript, 'Hit the last ditch exception for {test_model}. Skipping this model entirely.')
             util.output(transcript, traceback.format_exc())
             continue
-
         failed_rules = [r["short_rule"] for r in test_rules if r["short_rule"] not in successful_rules]
         print_and_save_summary(test_model, successful_rules, failed_rules, turns_per_problem, results_directory)

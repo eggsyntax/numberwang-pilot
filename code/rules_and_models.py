@@ -138,11 +138,11 @@ rules_phase2_pt1 = [
      ],
      'difficulty': 3.70,
      },
-    {'rule': 'If a list item n is even, the next item must be (n / 2). Otherwise (ie if n is odd), the next item must be (5 * n + 1). For example, [12, 6, 3, 10, 5, 16] follows the rule.',
+    {'rule': 'If a list item n is even, the next item must be (n / 2). Otherwise (ie if n is odd), the next item must be (5 * n + 1). For example, [12, 6, 3, 16, 8, 4] follows the rule.',
      'short_rule': 'collatzish',
      'examples': [
-         [12, 6, 3, 10, 5, 16],
-         [4, 2, 1, 6, 3],
+         [12, 6, 3, 16, 8, 4],
+         [9, 46, 23, 116],
          [14, 7, 36, 18],
      ],
      'difficulty': 3.95,
@@ -168,6 +168,42 @@ rules_phase2_pt1 = [
 ]
 
 # rules_phase2_pt2 = [
+#     {'rule': 'The list contains the number 3, in any position',
+#      'short_rule': '',
+#      'examples': [
+#          [],
+#          [],
+#          [],
+#      ],
+#      'difficulty': 1.60
+#      },
+#     {'rule': 'Each item is double the previous minus 1. So eg if one item is 5, then next is (2*5)-1, ie 9. The first item can be anything.',
+#      'short_rule': '',
+#      'examples': [
+#          [],
+#          [],
+#          [],
+#      ],
+#      'difficulty': 2.40
+#      },
+#     {'rule': 'Items alternate being even and odd (note that this is equivalent to the absolute differences between items all being odd). The first item can be either even or odd.',
+#      'short_rule': '',
+#      'examples': [
+#          [],
+#          [],
+#          [],
+#      ],
+#      'difficulty': 2.85
+#      },
+#     {'rule': 'The difference between successive ',
+#      'short_rule': '',
+#      'examples': [
+#          [],
+#          [],
+#          [],
+#      ],
+#      'difficulty':
+#      },
 #     {'rule': '',
 #      'short_rule': '',
 #      'examples': [

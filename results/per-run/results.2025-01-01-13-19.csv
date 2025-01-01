@@ -1,0 +1,4 @@
+"openai/o1-mini-2024-09-12","no repeated numbers",2.3,False,-1,"2025-01-01"
+"openai/o1-mini-2024-09-12","mult 3 or 5 not both",2.45,False,-1,"2025-01-01"
+"openai/o1-mini-2024-09-12","converging toward center",3.05,False,-1,"2025-01-01"
+"openai/o1-mini-2024-09-12","odd number of odd numbers",3.25,False,-1,"2025-01-01"

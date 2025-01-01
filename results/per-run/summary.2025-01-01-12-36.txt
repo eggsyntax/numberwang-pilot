@@ -1,0 +1,15 @@
+For model: openai/o1-preview-2024-09-12 at 2025-01-01 12:36:02.235453
+
+Rules where openai/o1-preview-2024-09-12 succeeded: ['strictly increasing order', 'mult 3 or 5 not both']
+
+Rules where openai/o1-preview-2024-09-12 failed: ['no repeated numbers', 'converging toward center', 'odd number of odd numbers', 'prime number of elements', 'previous or sum', 'collatzish', 'divisible or plus 13', 'previous over 17']
+
+Number of turns: [3, 2, 3, 4, 1, 4, 3, 2, 5, -1]
+
+Success rate: 0.2
+
+
+
+
+
+

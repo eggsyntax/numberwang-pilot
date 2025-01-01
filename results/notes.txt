@@ -1,0 +1,4 @@
+Notes on changes:
+- After the first run (12/20/24), discovered that I'd failed to add the 2nd and 3rd examples to the final two rules. Added those, reran, and edited in the new results (interestingly, this led to *worse* results on the final rule).
+- 01/01/24: Added o1-preview and o1-mini (in a separate branch) & ran them -- had to edit the prompt, because asking o1 models to 'think out loud' causes OpenAI to reject the request.
+- 01/01/24: Discovered that I had been inconsistent on the collatzish rule -- I had changed from 3n+1 to 5n+1 but one of the examples hadn't been properly updated.

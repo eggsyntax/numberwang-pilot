@@ -1,0 +1,15 @@
+For model: openai/o1 at 2025-01-01 10:59:06.179433
+
+Rules where openai/o1 succeeded: []
+
+Rules where openai/o1 failed: ['strictly increasing order']
+
+Number of turns: [-1]
+
+Success rate: 0.0
+
+
+
+
+
+
