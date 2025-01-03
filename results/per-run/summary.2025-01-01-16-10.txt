@@ -1,0 +1,15 @@
+For model: openai/gpt-4o-2024-11-20 at 2025-01-01 16:10:40.122081
+
+Rules where openai/gpt-4o-2024-11-20 succeeded: []
+
+Rules where openai/gpt-4o-2024-11-20 failed: ['collatzish']
+
+Number of turns: [20]
+
+Success rate: 0.0
+
+
+
+
+
+

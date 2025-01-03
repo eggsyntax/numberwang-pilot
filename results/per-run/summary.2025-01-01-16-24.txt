@@ -1,0 +1,15 @@
+For model: anthropic/claude-3-opus:beta at 2025-01-01 16:24:56.824878
+
+Rules where anthropic/claude-3-opus:beta succeeded: []
+
+Rules where anthropic/claude-3-opus:beta failed: ['collatzish']
+
+Number of turns: [-1]
+
+Success rate: 0.0
+
+
+
+
+
+

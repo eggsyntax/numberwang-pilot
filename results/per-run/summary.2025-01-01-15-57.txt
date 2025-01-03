@@ -1,0 +1,15 @@
+For model: google/gemma-2-27b-it at 2025-01-01 15:57:31.232831
+
+Rules where google/gemma-2-27b-it succeeded: []
+
+Rules where google/gemma-2-27b-it failed: ['collatzish']
+
+Number of turns: [8]
+
+Success rate: 0.0
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+For model: cohere/command-r-plus at 2025-01-01 16:21:29.064868
+
+Rules where cohere/command-r-plus succeeded: []
+
+Rules where cohere/command-r-plus failed: ['collatzish']
+
+Number of turns: [-1]
+
+Success rate: 0.0
+
+
+
+
+
+

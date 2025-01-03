@@ -1,0 +1,15 @@
+For model: meta-llama/llama-3.3-70b-instruct at 2025-01-01 16:04:18.990350
+
+Rules where meta-llama/llama-3.3-70b-instruct succeeded: []
+
+Rules where meta-llama/llama-3.3-70b-instruct failed: ['collatzish']
+
+Number of turns: [5]
+
+Success rate: 0.0
+
+
+
+
+
+

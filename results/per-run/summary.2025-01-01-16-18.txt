@@ -1,0 +1,30 @@
+For model: google/gemini-pro-1.5 at 2025-01-01 16:18:15.040426
+
+Rules where google/gemini-pro-1.5 succeeded: []
+
+Rules where google/gemini-pro-1.5 failed: ['collatzish']
+
+Number of turns: [20]
+
+Success rate: 0.0
+
+
+
+
+
+
+For model: x-ai/grok-2-1212 at 2025-01-01 16:18:45.760161
+
+Rules where x-ai/grok-2-1212 succeeded: []
+
+Rules where x-ai/grok-2-1212 failed: ['collatzish']
+
+Number of turns: [-1]
+
+Success rate: 0.0
+
+
+
+
+
+

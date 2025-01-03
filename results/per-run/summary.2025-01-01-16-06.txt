@@ -1,0 +1,15 @@
+For model: qwen/qwen-2.5-coder-32b-instruct at 2025-01-01 16:06:53.913147
+
+Rules where qwen/qwen-2.5-coder-32b-instruct succeeded: []
+
+Rules where qwen/qwen-2.5-coder-32b-instruct failed: ['collatzish']
+
+Number of turns: [5]
+
+Success rate: 0.0
+
+
+
+
+
+

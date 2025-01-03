@@ -1,0 +1,15 @@
+For model: anthropic/claude-3.5-sonnet:beta at 2025-01-01 16:23:56.552203
+
+Rules where anthropic/claude-3.5-sonnet:beta succeeded: []
+
+Rules where anthropic/claude-3.5-sonnet:beta failed: ['collatzish']
+
+Number of turns: [7]
+
+Success rate: 0.0
+
+
+
+
+
+
